@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 789f396e675f8407eb9bc7f55c716133
+guid: b72f58e7e50b84b129465f58eab87f19
 PluginImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -7,14 +7,14 @@ PluginImporter:
   executionOrder: {}
   defineConstraints: []
   isPreloaded: 0
-  isOverridable: 0
+  isOverridable: 1
   isExplicitlyReferenced: 0
   validateReferences: 1
   platformData:
   - first:
       Any: 
     second:
-      enabled: 0
+      enabled: 1
       settings: {}
   - first:
       Editor: Editor
@@ -22,12 +22,6 @@ PluginImporter:
       enabled: 0
       settings:
         DefaultValueInitialized: true
-  - first:
-      OpenHarmony: OpenHarmony
-    second:
-      enabled: 1
-      settings:
-        CPU: ARM64
   userData: 
   assetBundleName: 
   assetBundleVariant: 
