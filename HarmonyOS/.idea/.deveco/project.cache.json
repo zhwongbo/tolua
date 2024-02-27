@@ -1,0 +1,16 @@
+{
+	"BuildOptions":{
+		"BUNDLE_NAME":"com.lua.tolua",
+		"SELECT_BUILD_MODE":"",
+		"BUILD_PATH":{
+			"OUTPUT_PATH":"/Users/baioo/Documents/GitProjects/tolua-ohos/HarmonyOS/build/outputs/default"
+		},
+		"SELECT_BUILD_PRODUCT":"default"
+	},
+	"CommonInfo":{
+		"crossplatform.projectType":"",
+		"project.ide.version":"4.0.3.700",
+		"current.select.product":"default",
+		"current.select.buildMode":""
+	}
+}
