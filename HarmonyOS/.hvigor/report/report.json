@@ -3,9 +3,9 @@
   "workLog": [
     {
       "type": "work",
-      "time": "[2024-02-27T15:53:45.767]",
+      "time": "[2024-02-27T16:34:33.376]",
       "workerId": 0,
-      "content": "[2024-02-27T15:53:45.767] > hvigor \u001b[32m\u001b[33mWARN: \u001b[33mArkTS:WARN File: /Users/baioo/Documents/GitProjects/tolua-ohos/HarmonyOS/entry/src/main/ets/ability/TuanjiePlayerAbility.ts:4:21\n Currently module for 'libtuanjie.so' is not verified. If you're importing napi, its verification will be enabled in later SDK version. Please make sure the corresponding .d.ts file is provided and the napis are correctly declared.\n\u001b[39m\n\u001b[33mWARN: \u001b[33mArkTS:WARN File: /Users/baioo/Documents/GitProjects/tolua-ohos/HarmonyOS/entry/src/main/ets/pages/TuanjiePlayerAbilityIndex.ets:10:21\n Currently module for 'libtuanjie.so' is not verified. If you're importing napi, its verification will be enabled in later SDK version. Please make sure the corresponding .d.ts file is provided and the napis are correctly declared.\n\u001b[39m\n\u001b[33mWARN: \u001b[33mArkTS:WARN File: /Users/baioo/Documents/GitProjects/tolua-ohos/HarmonyOS/entry/src/main/ets/utils/PromiseWithTimeout.ts:2:21\n Currently module for 'libtuanjie.so' is not verified. If you're importing napi, its verification will be enabled in later SDK version. Please make sure the corresponding .d.ts file is provided and the napis are correctly declared.\n\u001b[39m\n\u001b[33mWARN: \u001b[33mArkTS:WARN File: /Users/baioo/Documents/GitProjects/tolua-ohos/HarmonyOS/entry/src/main/ets/utils/SyncCallHelper.ts:1:21\n Currently module for 'libtuanjie.so' is not verified. If you're importing napi, its verification will be enabled in later SDK version. Please make sure the corresponding .d.ts file is provided and the napis are correctly declared.\n\u001b[39m\n\u001b[33mWARN: \u001b[33mArkTS:WARN File: /Users/baioo/Documents/GitProjects/tolua-ohos/HarmonyOS/entry/src/main/ets/utils/VideoPlayerProxy.ts:1:21\n Currently module for 'libtuanjie.so' is not verified. If you're importing napi, its verification will be enabled in later SDK version. Please make sure the corresponding .d.ts file is provided and the napis are correctly declared.\n\u001b[39m\n\u001b[33mWARN: \u001b[33mArkTS:WARN File: /Users/baioo/Documents/GitProjects/tolua-ohos/HarmonyOS/entry/src/main/ets/workers/TuanjieMainWorker.ts:9:21\n Currently module for 'libtuanjie.so' is not verified. If you're importing napi, its verification will be enabled in later SDK version. Please make sure the corresponding .d.ts file is provided and the napis are correctly declared.\n\u001b[39m\n\u001b[33mWARN: \u001b[33mArkTS:WARN File: /Users/baioo/Documents/GitProjects/tolua-ohos/HarmonyOS/entry/src/main/ets/workers/TuanjieMainWorkerHandler.ts:5:21\n Currently module for 'libtuanjie.so' is not verified. If you're importing napi, its verification will be enabled in later SDK version. Please make sure the corresponding .d.ts file is provided and the napis are correctly declared.\n\u001b[39m\n\u001b[39m\n",
+      "content": "[2024-02-27T16:34:33.376] > hvigor \u001b[32m\u001b[33mWARN: \u001b[33mArkTS:WARN File: /Users/baioo/Documents/GitProjects/tolua-ohos/HarmonyOS/entry/src/main/ets/ability/TuanjiePlayerAbility.ts:4:21\n Currently module for 'libtuanjie.so' is not verified. If you're importing napi, its verification will be enabled in later SDK version. Please make sure the corresponding .d.ts file is provided and the napis are correctly declared.\n\u001b[39m\n\u001b[33mWARN: \u001b[33mArkTS:WARN File: /Users/baioo/Documents/GitProjects/tolua-ohos/HarmonyOS/entry/src/main/ets/pages/TuanjiePlayerAbilityIndex.ets:10:21\n Currently module for 'libtuanjie.so' is not verified. If you're importing napi, its verification will be enabled in later SDK version. Please make sure the corresponding .d.ts file is provided and the napis are correctly declared.\n\u001b[39m\n\u001b[33mWARN: \u001b[33mArkTS:WARN File: /Users/baioo/Documents/GitProjects/tolua-ohos/HarmonyOS/entry/src/main/ets/utils/PromiseWithTimeout.ts:2:21\n Currently module for 'libtuanjie.so' is not verified. If you're importing napi, its verification will be enabled in later SDK version. Please make sure the corresponding .d.ts file is provided and the napis are correctly declared.\n\u001b[39m\n\u001b[33mWARN: \u001b[33mArkTS:WARN File: /Users/baioo/Documents/GitProjects/tolua-ohos/HarmonyOS/entry/src/main/ets/utils/SyncCallHelper.ts:1:21\n Currently module for 'libtuanjie.so' is not verified. If you're importing napi, its verification will be enabled in later SDK version. Please make sure the corresponding .d.ts file is provided and the napis are correctly declared.\n\u001b[39m\n\u001b[33mWARN: \u001b[33mArkTS:WARN File: /Users/baioo/Documents/GitProjects/tolua-ohos/HarmonyOS/entry/src/main/ets/utils/VideoPlayerProxy.ts:1:21\n Currently module for 'libtuanjie.so' is not verified. If you're importing napi, its verification will be enabled in later SDK version. Please make sure the corresponding .d.ts file is provided and the napis are correctly declared.\n\u001b[39m\n\u001b[33mWARN: \u001b[33mArkTS:WARN File: /Users/baioo/Documents/GitProjects/tolua-ohos/HarmonyOS/entry/src/main/ets/workers/TuanjieMainWorker.ts:9:21\n Currently module for 'libtuanjie.so' is not verified. If you're importing napi, its verification will be enabled in later SDK version. Please make sure the corresponding .d.ts file is provided and the napis are correctly declared.\n\u001b[39m\n\u001b[33mWARN: \u001b[33mArkTS:WARN File: /Users/baioo/Documents/GitProjects/tolua-ohos/HarmonyOS/entry/src/main/ets/workers/TuanjieMainWorkerHandler.ts:5:21\n Currently module for 'libtuanjie.so' is not verified. If you're importing napi, its verification will be enabled in later SDK version. Please make sure the corresponding .d.ts file is provided and the napis are correctly declared.\n\u001b[39m\n\u001b[39m\n",
       "taskPath": "entry",
       "taskName": "default@CompileArkTS",
       "taskCompletePath": "entry:default@CompileArkTS"
@@ -1011,6 +1011,472 @@
       "taskPath": "entry",
       "workerId": -1,
       "startTime": 1709020439405
+    },
+    {
+      "type": "build_line",
+      "endTime": 1709022681433,
+      "status": "closed",
+      "children": [],
+      "name": "overallTime",
+      "taskName": "clean",
+      "taskPath": "entry",
+      "workerId": -1,
+      "startTime": 1709022681404
+    },
+    {
+      "type": "build_line",
+      "endTime": 1709022681433,
+      "status": "closed",
+      "children": [],
+      "name": "overallTime",
+      "taskName": "clean",
+      "taskPath": "HarmonyOS",
+      "workerId": -1,
+      "startTime": 1709022681433
+    },
+    {
+      "type": "build_line",
+      "endTime": 1709022707688,
+      "status": "closed",
+      "children": [],
+      "name": "overallTime",
+      "taskName": "default@PreBuild",
+      "taskPath": "entry",
+      "workerId": -1,
+      "startTime": 1709022707685
+    },
+    {
+      "type": "build_line",
+      "endTime": 1709022707694,
+      "status": "closed",
+      "children": [],
+      "name": "overallTime",
+      "taskName": "default@GenerateMetadata",
+      "taskPath": "entry",
+      "workerId": -1,
+      "startTime": 1709022707688
+    },
+    {
+      "type": "build_line",
+      "endTime": 1709022707696,
+      "status": "closed",
+      "children": [],
+      "name": "overallTime",
+      "taskName": "default@MergeProfile",
+      "taskPath": "entry",
+      "workerId": -1,
+      "startTime": 1709022707696
+    },
+    {
+      "type": "build_line",
+      "endTime": 1709022707699,
+      "status": "closed",
+      "children": [],
+      "name": "overallTime",
+      "taskName": "default@GenerateLoaderJson",
+      "taskPath": "entry",
+      "workerId": -1,
+      "startTime": 1709022707697
+    },
+    {
+      "type": "build_line",
+      "endTime": 1709022707700,
+      "status": "closed",
+      "children": [],
+      "name": "overallTime",
+      "taskName": "default@BuildNativeWithCmake",
+      "taskPath": "entry",
+      "workerId": -1,
+      "startTime": 1709022707700
+    },
+    {
+      "type": "build_line",
+      "endTime": 1709022707706,
+      "status": "closed",
+      "children": [],
+      "name": "overallTime",
+      "taskName": "default@MakePackInfo",
+      "taskPath": "entry",
+      "workerId": -1,
+      "startTime": 1709022707700
+    },
+    {
+      "type": "build_line",
+      "endTime": 1709022707771,
+      "status": "closed",
+      "children": [],
+      "name": "overallTime",
+      "taskName": "default@ProcessProfile",
+      "taskPath": "entry",
+      "workerId": -1,
+      "startTime": 1709022707707
+    },
+    {
+      "type": "build_line",
+      "endTime": 1709022707772,
+      "status": "closed",
+      "children": [],
+      "name": "overallTime",
+      "taskName": "default@BuildNativeWithNinja",
+      "taskPath": "entry",
+      "workerId": -1,
+      "startTime": 1709022707772
+    },
+    {
+      "type": "build_line",
+      "endTime": 1709022707773,
+      "status": "closed",
+      "children": [],
+      "name": "overallTime",
+      "taskName": "default@ProcessResource",
+      "taskPath": "entry",
+      "workerId": -1,
+      "startTime": 1709022707772
+    },
+    {
+      "type": "build_line",
+      "endTime": 1709022707925,
+      "status": "closed",
+      "children": [],
+      "name": "overallTime",
+      "taskName": "default@ProcessLibs",
+      "taskPath": "entry",
+      "workerId": -1,
+      "startTime": 1709022707773
+    },
+    {
+      "type": "build_line",
+      "endTime": 1709022708038,
+      "status": "closed",
+      "children": [],
+      "name": "overallTime",
+      "taskName": "default@CompileResource",
+      "taskPath": "entry",
+      "workerId": -1,
+      "startTime": 1709022707926
+    },
+    {
+      "type": "build_line",
+      "endTime": 1709022708052,
+      "status": "closed",
+      "children": [],
+      "name": "overallTime",
+      "taskName": "default@BuildJS",
+      "taskPath": "entry",
+      "workerId": -1,
+      "startTime": 1709022708047
+    },
+    {
+      "type": "build_line",
+      "endTime": 1709022713147,
+      "status": "closed",
+      "children": [],
+      "name": "overallTime",
+      "taskName": "default@CompileArkTS",
+      "taskPath": "entry",
+      "workerId": 0,
+      "startTime": 1709022708047
+    },
+    {
+      "type": "default",
+      "endTime": 1709022713147,
+      "status": "closed",
+      "children": [
+        {
+          "type": "build_line",
+          "endTime": 1709022713147,
+          "status": "closed",
+          "children": [],
+          "name": "overallTime",
+          "taskName": "default@CompileArkTS",
+          "taskPath": "entry",
+          "workerId": 0,
+          "startTime": 1709022708047
+        }
+      ],
+      "name": "overallTime",
+      "taskName": "default@CompileArkTS",
+      "taskPath": "entry",
+      "workerId": -1,
+      "startTime": 1709022708039
+    },
+    {
+      "type": "build_line",
+      "endTime": 1709022716882,
+      "status": "closed",
+      "children": [],
+      "name": "overallTime",
+      "taskName": "default@PackageHap",
+      "taskPath": "entry",
+      "workerId": 1,
+      "startTime": 1709022713156
+    },
+    {
+      "type": "default",
+      "endTime": 1709022716882,
+      "status": "closed",
+      "children": [
+        {
+          "type": "build_line",
+          "endTime": 1709022716882,
+          "status": "closed",
+          "children": [],
+          "name": "overallTime",
+          "taskName": "default@PackageHap",
+          "taskPath": "entry",
+          "workerId": 1,
+          "startTime": 1709022713156
+        }
+      ],
+      "name": "overallTime",
+      "taskName": "default@PackageHap",
+      "taskPath": "entry",
+      "workerId": -1,
+      "startTime": 1709022713150
+    },
+    {
+      "type": "build_line",
+      "endTime": 1709022728466,
+      "status": "closed",
+      "children": [],
+      "name": "overallTime",
+      "taskName": "default@SignHap",
+      "taskPath": "entry",
+      "workerId": -1,
+      "startTime": 1709022716883
+    },
+    {
+      "type": "build_line",
+      "endTime": 1709022728467,
+      "status": "closed",
+      "children": [],
+      "name": "overallTime",
+      "taskName": "assembleHap",
+      "taskPath": "entry",
+      "workerId": -1,
+      "startTime": 1709022728467
+    },
+    {
+      "type": "build_line",
+      "endTime": 1709022868424,
+      "status": "closed",
+      "children": [],
+      "name": "overallTime",
+      "taskName": "default@PreBuild",
+      "taskPath": "entry",
+      "workerId": -1,
+      "startTime": 1709022868420
+    },
+    {
+      "type": "build_line",
+      "endTime": 1709022868431,
+      "status": "closed",
+      "children": [],
+      "name": "overallTime",
+      "taskName": "default@GenerateMetadata",
+      "taskPath": "entry",
+      "workerId": -1,
+      "startTime": 1709022868424
+    },
+    {
+      "type": "build_line",
+      "endTime": 1709022868434,
+      "status": "closed",
+      "children": [],
+      "name": "overallTime",
+      "taskName": "default@MergeProfile",
+      "taskPath": "entry",
+      "workerId": -1,
+      "startTime": 1709022868433
+    },
+    {
+      "type": "build_line",
+      "endTime": 1709022868435,
+      "status": "closed",
+      "children": [],
+      "name": "overallTime",
+      "taskName": "default@GenerateLoaderJson",
+      "taskPath": "entry",
+      "workerId": -1,
+      "startTime": 1709022868434
+    },
+    {
+      "type": "build_line",
+      "endTime": 1709022868435,
+      "status": "closed",
+      "children": [],
+      "name": "overallTime",
+      "taskName": "default@BuildNativeWithCmake",
+      "taskPath": "entry",
+      "workerId": -1,
+      "startTime": 1709022868435
+    },
+    {
+      "type": "build_line",
+      "endTime": 1709022868440,
+      "status": "closed",
+      "children": [],
+      "name": "overallTime",
+      "taskName": "default@MakePackInfo",
+      "taskPath": "entry",
+      "workerId": -1,
+      "startTime": 1709022868436
+    },
+    {
+      "type": "build_line",
+      "endTime": 1709022868502,
+      "status": "closed",
+      "children": [],
+      "name": "overallTime",
+      "taskName": "default@ProcessProfile",
+      "taskPath": "entry",
+      "workerId": -1,
+      "startTime": 1709022868441
+    },
+    {
+      "type": "build_line",
+      "endTime": 1709022868503,
+      "status": "closed",
+      "children": [],
+      "name": "overallTime",
+      "taskName": "default@BuildNativeWithNinja",
+      "taskPath": "entry",
+      "workerId": -1,
+      "startTime": 1709022868502
+    },
+    {
+      "type": "build_line",
+      "endTime": 1709022868503,
+      "status": "closed",
+      "children": [],
+      "name": "overallTime",
+      "taskName": "default@ProcessResource",
+      "taskPath": "entry",
+      "workerId": -1,
+      "startTime": 1709022868503
+    },
+    {
+      "type": "build_line",
+      "endTime": 1709022868677,
+      "status": "closed",
+      "children": [],
+      "name": "overallTime",
+      "taskName": "default@ProcessLibs",
+      "taskPath": "entry",
+      "workerId": -1,
+      "startTime": 1709022868503
+    },
+    {
+      "type": "build_line",
+      "endTime": 1709022868776,
+      "status": "closed",
+      "children": [],
+      "name": "overallTime",
+      "taskName": "default@CompileResource",
+      "taskPath": "entry",
+      "workerId": -1,
+      "startTime": 1709022868677
+    },
+    {
+      "type": "build_line",
+      "endTime": 1709022868795,
+      "status": "closed",
+      "children": [],
+      "name": "overallTime",
+      "taskName": "default@BuildJS",
+      "taskPath": "entry",
+      "workerId": -1,
+      "startTime": 1709022868790
+    },
+    {
+      "type": "build_line",
+      "endTime": 1709022873379,
+      "status": "closed",
+      "children": [],
+      "name": "overallTime",
+      "taskName": "default@CompileArkTS",
+      "taskPath": "entry",
+      "workerId": 0,
+      "startTime": 1709022868790
+    },
+    {
+      "type": "default",
+      "endTime": 1709022873379,
+      "status": "closed",
+      "children": [
+        {
+          "type": "build_line",
+          "endTime": 1709022873379,
+          "status": "closed",
+          "children": [],
+          "name": "overallTime",
+          "taskName": "default@CompileArkTS",
+          "taskPath": "entry",
+          "workerId": 0,
+          "startTime": 1709022868790
+        }
+      ],
+      "name": "overallTime",
+      "taskName": "default@CompileArkTS",
+      "taskPath": "entry",
+      "workerId": -1,
+      "startTime": 1709022868777
+    },
+    {
+      "type": "build_line",
+      "endTime": 1709022877339,
+      "status": "closed",
+      "children": [],
+      "name": "overallTime",
+      "taskName": "default@PackageHap",
+      "taskPath": "entry",
+      "workerId": 1,
+      "startTime": 1709022873385
+    },
+    {
+      "type": "default",
+      "endTime": 1709022877339,
+      "status": "closed",
+      "children": [
+        {
+          "type": "build_line",
+          "endTime": 1709022877339,
+          "status": "closed",
+          "children": [],
+          "name": "overallTime",
+          "taskName": "default@PackageHap",
+          "taskPath": "entry",
+          "workerId": 1,
+          "startTime": 1709022873385
+        }
+      ],
+      "name": "overallTime",
+      "taskName": "default@PackageHap",
+      "taskPath": "entry",
+      "workerId": -1,
+      "startTime": 1709022873381
+    },
+    {
+      "type": "build_line",
+      "endTime": 1709022888913,
+      "status": "closed",
+      "children": [],
+      "name": "overallTime",
+      "taskName": "default@SignHap",
+      "taskPath": "entry",
+      "workerId": -1,
+      "startTime": 1709022877339
+    },
+    {
+      "type": "build_line",
+      "endTime": 1709022888914,
+      "status": "closed",
+      "children": [],
+      "name": "overallTime",
+      "taskName": "assembleHap",
+      "taskPath": "entry",
+      "workerId": -1,
+      "startTime": 1709022888914
     }
   ]
 }
