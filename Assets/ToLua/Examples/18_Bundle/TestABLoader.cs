@@ -73,7 +73,8 @@ public class TestABLoader : MonoBehaviour
         {
             string str = list[i];
 
-#if UNITY_ANDROID && !UNITY_EDITOR
+#if (UNITY_ANDROID || UNITY_OPENHARMONY) && !UNITY_EDITOR
+
             string path = streamingPath + "/" + LuaConst.osDir + "/" + str;
 #else
             string path = "file:///" + streamingPath + "/" + LuaConst.osDir + "/" + str;
