@@ -40,7 +40,7 @@ public class TestPerformance : MonoBehaviour
         state.Dispose();
         state = null;
     }
-
+    
     void OnGUI()
     {        
         GUI.Label(new Rect(Screen.width / 2 - 220, Screen.height / 2 - 200, 400, 400), tips);

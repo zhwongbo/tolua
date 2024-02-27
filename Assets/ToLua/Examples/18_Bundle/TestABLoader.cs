@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using LuaInterface;
 using System;
+using UnityEngine.UI;
 
 //click Lua/Build lua bundle
 public class TestABLoader : MonoBehaviour 
@@ -62,7 +63,9 @@ public class TestABLoader : MonoBehaviour
         List<string> list = new List<string>(manifest.GetAllAssetBundles());        
 #else
         //此处应该配表获取
-        List<string> list = new List<string>() { "lua.unity3d", "lua_cjson.unity3d", "lua_system.unity3d", "lua_unityengine.unity3d", "lua_protobuf.unity3d", "lua_misc.unity3d", "lua_socket.unity3d", "lua_system_reflection.unity3d" };
+        List<string> list = new List<string>() { "lua.unity3d", "lua_cjson.unity3d", "lua_jit.unity3d", "lua_lpeg.unity3d", "lua_system.unity3d", 
+            "lua_unityengine.unity3d", "lua_protobuf.unity3d", "lua_misc.unity3d", 
+            "lua_socket.unity3d", "lua_system_reflection.unity3d","lua_system_injection.unity3d" };
 #endif
         bundleCount = list.Count;
 
@@ -104,6 +107,7 @@ public class TestABLoader : MonoBehaviour
     {
         tips += msg;
         tips += "\r\n";
+        text.text = tips;
     }
     
 
@@ -124,197 +128,206 @@ public class TestABLoader : MonoBehaviour
     {                
         state = new LuaState();
         state.Start();
+        LuaBinder.Bind(state);
         state.DoString("print('hello tolua#:'..tostring(Vector3.zero))");
         state.DoFile("TestPerf.lua"); 
         state.DoFile("Main.lua");
         LuaFunction func = state.GetFunction("Main");
         func.Call();
         func.Dispose();
-	}	
+	}
+
+    public Text text;
     
-     void OnGUI()
-    {        
-        GUI.Label(new Rect(Screen.width / 2 - 220, Screen.height / 2 - 200, 400, 400), tips);
+    public void Test1()
+    {
+        float time = Time.realtimeSinceStartup;            
 
-        if (GUI.Button(new Rect(50, 50, 120, 45), "Test1"))
+        for (int i = 0; i < 200000; i++)
         {
-            float time = Time.realtimeSinceStartup;            
-
-            for (int i = 0; i < 200000; i++)
-            {
-                Vector3 v = transform.position;
-                transform.position = v + Vector3.one;
-            }
-
-            time = Time.realtimeSinceStartup - time;
-            tips = "";
-            Debugger.Log("c# Transform getset cost time: " + time);            
-            transform.position = Vector3.zero;
-
-            LuaFunction func = state.GetFunction("Test1");
-            func.BeginPCall();
-            func.Push(transform);
-            func.PCall();
-            func.EndPCall();
-            func.Dispose();
-            func = null;            
+            Vector3 v = transform.position;
+            transform.position = v + Vector3.one;
         }
-        else if (GUI.Button(new Rect(50, 150, 120, 45), "Test2"))
+
+        time = Time.realtimeSinceStartup - time;
+        tips = "";
+        Debugger.Log("c# Transform getset cost time: " + time);            
+        transform.position = Vector3.zero;
+
+        LuaFunction func = state.GetFunction("Test1");
+        func.BeginPCall();
+        func.Push(transform);
+        func.PCall();
+        func.EndPCall();
+        func.Dispose();
+        func = null;    
+    }
+
+    public void Test2()
+    {
+        float time = Time.realtimeSinceStartup;
+
+        for (int i = 0; i < 200000; i++)
         {
-            float time = Time.realtimeSinceStartup;
-
-            for (int i = 0; i < 200000; i++)
-            {
-                transform.Rotate(Vector3.up, 1);
-            }
-
-            time = Time.realtimeSinceStartup - time;
-            tips = "";
-            Debugger.Log("c# Transform.Rotate cost time: " + time);
-
-            LuaFunction func = state.GetFunction("Test2");
-            func.BeginPCall();
-            func.Push(transform);
-            func.PCall();
-            func.EndPCall();
-            func.Dispose();
-            func = null;    
+            transform.Rotate(Vector3.up, 1);
         }
-        else if (GUI.Button(new Rect(50, 250, 120, 45), "Test3"))
+
+        time = Time.realtimeSinceStartup - time;
+        tips = "";
+        Debugger.Log("c# Transform.Rotate cost time: " + time);
+
+        LuaFunction func = state.GetFunction("Test2");
+        func.BeginPCall();
+        func.Push(transform);
+        func.PCall();
+        func.EndPCall();
+        func.Dispose();
+        func = null;    
+    }
+
+    public void Test3()
+    {
+        float time = Time.realtimeSinceStartup;            
+
+        for (int i = 0; i < 2000000; i++)
         {
-            float time = Time.realtimeSinceStartup;            
-
-            for (int i = 0; i < 2000000; i++)
-            {
-                new Vector3(i, i, i);
-            }
-
-            time = Time.realtimeSinceStartup - time;
-            tips = "";
-            Debugger.Log("c# new Vector3 cost time: " + time);            
-
-            LuaFunction func = state.GetFunction("Test3");
-            func.Call();
-            func.Dispose();
-            func = null;  
+            new Vector3(i, i, i);
         }
-        else if (GUI.Button(new Rect(50, 350, 120, 45), "Test4"))
+
+        time = Time.realtimeSinceStartup - time;
+        tips = "";
+        Debugger.Log("c# new Vector3 cost time: " + time);            
+
+        LuaFunction func = state.GetFunction("Test3");
+        func.Call();
+        func.Dispose();
+        func = null;  
+    }
+
+    public void Test4()
+    {
+        float time = Time.realtimeSinceStartup;
+
+        for (int i = 0; i < 20000; i++)
         {
-            float time = Time.realtimeSinceStartup;
-
-            for (int i = 0; i < 20000; i++)
-            {
-                new GameObject();
-            }
-
-            time = Time.realtimeSinceStartup - time;
-            tips = "";
-            Debugger.Log("c# new GameObject cost time: " + time);
-
-            //光gc了
-            LuaFunction func = state.GetFunction("Test4");
-            func.Call();
-            func.Dispose();
-            func = null;
+            new GameObject();
         }
-        else if (GUI.Button(new Rect(50, 450, 120, 45), "Test5"))
-        {            
-            int[] array = new int[1024];
 
+        time = Time.realtimeSinceStartup - time;
+        tips = "";
+        Debugger.Log("c# new GameObject cost time: " + time);
+
+        //光gc了
+        LuaFunction func = state.GetFunction("Test4");
+        func.Call();
+        func.Dispose();
+        func = null;
+    }
+
+    public void Test5()
+    {
+        int[] array = new int[1024];
+
+        for (int i = 0; i < 1024; i++)
+        {
+            array[i] = i;
+        }
+
+        float time = Time.realtimeSinceStartup;
+        int total = 0;
+
+        for (int j = 0; j < 100000; j++)
+        {
             for (int i = 0; i < 1024; i++)
             {
-                array[i] = i;
+                total += array[i];
             }
-
-            float time = Time.realtimeSinceStartup;
-            int total = 0;
-
-            for (int j = 0; j < 100000; j++)
-            {
-                for (int i = 0; i < 1024; i++)
-                {
-                    total += array[i];
-                }
-            }
-
-            time = Time.realtimeSinceStartup - time;
-            tips = "";
-            Debugger.Log("Array cost time: " + time);
-
-            List<int> list = new List<int>(array);
-            time = Time.realtimeSinceStartup;
-            total = 0;
-
-            for (int j = 0; j < 100000; j++)
-            {
-                for (int i = 0; i < 1024; i++)
-                {
-                    total += list[i];
-                }
-            }
-
-            time = Time.realtimeSinceStartup - time;
-            tips = "";
-            Debugger.Log("Array cost time: " + time);
-
-            LuaFunction func = state.GetFunction("TestTable");
-            func.Call();
-            func.Dispose();
-            func = null;            
         }
-        else if (GUI.Button(new Rect(50, 550, 120, 40), "Test7"))
-        {            
-            float time = Time.realtimeSinceStartup;
-            Vector3 v1 = Vector3.zero;
 
-            for (int i = 0; i < 200000; i++)
-            {
-                Vector3 v = new Vector3(i,i,i);
-                v = Vector3.Normalize(v);
-                v1 = v + v1;
-            }
+        time = Time.realtimeSinceStartup - time;
+        tips = "";
+        Debugger.Log("Array cost time: " + time);
 
-            time = Time.realtimeSinceStartup - time;            
-            tips = "";
-            Debugger.Log("Vector3 New Normalize cost: " + time);
-            LuaFunction func = state.GetFunction("Test7");
-            func.Call();
-            func.Dispose();
-            func = null;  
-        }
-        else if (GUI.Button(new Rect(250, 50, 120, 40), "Test8"))
+        List<int> list = new List<int>(array);
+        time = Time.realtimeSinceStartup;
+        total = 0;
+
+        for (int j = 0; j < 100000; j++)
         {
-            float time = Time.realtimeSinceStartup;
-
-            for (int i = 0; i < 200000; i++)
+            for (int i = 0; i < 1024; i++)
             {
-		        Quaternion q1 = Quaternion.Euler(i, i, i);
-                Quaternion q2 = Quaternion.Euler(i * 2, i * 2, i * 2);
-                Quaternion.Slerp(q1, q2, 0.5f);
+                total += list[i];
             }
-
-            time = Time.realtimeSinceStartup - time;
-            tips = "";
-            Debugger.Log("Quaternion Euler Slerp cost: " + time);
-
-            LuaFunction func = state.GetFunction("Test8");
-            func.Call();
-            func.Dispose();
-            func = null;
         }
-        else if (GUI.Button(new Rect(250, 150, 120, 40), "Test9"))
+
+        time = Time.realtimeSinceStartup - time;
+        tips = "";
+        Debugger.Log("Array cost time: " + time);
+
+        LuaFunction func = state.GetFunction("TestTable");
+        func.Call();
+        func.Dispose();
+        func = null;    
+    }
+
+    public void Test6()
+    {
+        float time = Time.realtimeSinceStartup;
+        Vector3 v1 = Vector3.zero;
+
+        for (int i = 0; i < 200000; i++)
         {
-            tips = "";
-            LuaFunction func = state.GetFunction("Test9");
-            func.Call();
-            func.Dispose();
-            func = null;
-        }
-        else if (GUI.Button(new Rect(250, 250, 120, 40), "Quit"))
-        {
-            Application.Quit();
+            Vector3 v = new Vector3(i,i,i);
+            v = Vector3.Normalize(v);
+            v1 = v + v1;
         }
 
+        time = Time.realtimeSinceStartup - time;            
+        tips = "";
+        Debugger.Log("Vector3 New Normalize cost: " + time);
+        LuaFunction func = state.GetFunction("Test7");
+        func.Call();
+        func.Dispose();
+        func = null;  
+    }
+
+    public void Test7()
+    {
+        float time = Time.realtimeSinceStartup;
+
+        for (int i = 0; i < 200000; i++)
+        {
+            Quaternion q1 = Quaternion.Euler(i, i, i);
+            Quaternion q2 = Quaternion.Euler(i * 2, i * 2, i * 2);
+            Quaternion.Slerp(q1, q2, 0.5f);
+        }
+
+        time = Time.realtimeSinceStartup - time;
+        tips = "";
+        Debugger.Log("Quaternion Euler Slerp cost: " + time);
+
+        LuaFunction func = state.GetFunction("Test8");
+        func.Call();
+        func.Dispose();
+        func = null;
+    }
+
+    public void Test8()
+    {
+        tips = "";
+        LuaFunction func = state.GetFunction("Test9");
+        func.Call();
+        func.Dispose();
+        func = null;
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
+    void Update()
+    {
         if (state != null)
         {
             state.CheckTop();
