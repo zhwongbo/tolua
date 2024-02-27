@@ -4,19 +4,16 @@ using System.Collections.Generic;
 using System.IO;
 using LuaInterface;
 using System;
-#if UNITY_5_4_OR_NEWER
-using UnityEngine.Networking;
-#endif
+using UnityEngine.UI;
 
 //click Lua/Build lua bundle
-public class TestABLoader : MonoBehaviour
+public class TestABLoader : MonoBehaviour 
 {
     int bundleCount = int.MaxValue;
     string tips = null;
 
     IEnumerator CoLoadBundle(string name, string path)
     {
-#if UNITY_4_6 || UNITY_4_7
         using (WWW www = new WWW(path))
         {
             if (www == null)
@@ -36,14 +33,7 @@ public class TestABLoader : MonoBehaviour
             --bundleCount;
             LuaFileUtils.Instance.AddSearchBundle(name, www.assetBundle);
             www.Dispose();
-        }  
-#else
-        AssetBundleCreateRequest request = AssetBundle.LoadFromFileAsync(path);
-        yield return request;
-
-        --bundleCount;
-        LuaFileUtils.Instance.AddSearchBundle(name, request.assetBundle);
-#endif        
+        }                     
     }
 
     IEnumerator LoadFinished()
@@ -59,39 +49,38 @@ public class TestABLoader : MonoBehaviour
     public IEnumerator LoadBundles()
     {
         string streamingPath = Application.streamingAssetsPath.Replace('\\', '/');
-        string dir = streamingPath + "/" + LuaConst.osDir;
 
-#if UNITY_EDITOR
-        if (!Directory.Exists(dir))
-        {
-            throw new Exception("must build bundle files first");
-        }
+#if UNITY_5 || UNITY_2017 || UNITY_2018
+#if UNITY_ANDROID && !UNITY_EDITOR
+        string main = streamingPath + "/" + LuaConst.osDir + "/" + LuaConst.osDir;
+#else
+        string main = "file:///" + streamingPath + "/" + LuaConst.osDir + "/" + LuaConst.osDir;
 #endif
+        WWW www = new WWW(main);
+        yield return www;
 
-#if UNITY_4_6 || UNITY_4_7
+        AssetBundleManifest manifest = (AssetBundleManifest)www.assetBundle.LoadAsset("AssetBundleManifest");
+        List<string> list = new List<string>(manifest.GetAllAssetBundles());        
+#else
         //此处应该配表获取
-        List<string> list = new List<string>() { "lua.unity3d", "lua_cjson.unity3d", "lua_system.unity3d", "lua_unityengine.unity3d", "lua_protobuf.unity3d", "lua_misc.unity3d", "lua_socket.unity3d", "lua_system_reflection.unity3d" };   
-#else       
-        AssetBundleCreateRequest request = AssetBundle.LoadFromFileAsync(dir + "/" + LuaConst.osDir);
-        yield return request;
-
-        AssetBundleManifest manifest = (AssetBundleManifest)request.assetBundle.LoadAsset("AssetBundleManifest");
-        List<string> list = new List<string>(manifest.GetAllAssetBundles());
+        List<string> list = new List<string>() { "lua.unity3d", "lua_cjson.unity3d", "lua_jit.unity3d", "lua_lpeg.unity3d", "lua_system.unity3d", 
+            "lua_unityengine.unity3d", "lua_protobuf.unity3d", "lua_misc.unity3d", 
+            "lua_socket.unity3d", "lua_system_reflection.unity3d","lua_system_injection.unity3d" };
 #endif
-
         bundleCount = list.Count;
 
         for (int i = 0; i < list.Count; i++)
         {
             string str = list[i];
 
-#if (UNITY_4_6 || UNITY_4_7) && UNITY_EDITOR
-            string path = "file:///" + streamingPath + "/" + LuaConst.osDir + "/" + str;
-#else
+#if (UNITY_ANDROID || UNITY_OPENHARMONY) && !UNITY_EDITOR
+
             string path = streamingPath + "/" + LuaConst.osDir + "/" + str;
+#else
+            string path = "file:///" + streamingPath + "/" + LuaConst.osDir + "/" + str;
 #endif
             string name = Path.GetFileNameWithoutExtension(str);
-            StartCoroutine(CoLoadBundle(name, path));
+            StartCoroutine(CoLoadBundle(name, path));            
         }
 
         yield return StartCoroutine(LoadFinished());
@@ -99,20 +88,19 @@ public class TestABLoader : MonoBehaviour
 
     void Awake()
     {
-#if UNITY_4_6 || UNITY_4_7
-        Application.RegisterLogCallback(ShowTips);
-#else
+#if UNITY_5 || UNITY_2017 || UNITY_2018
         Application.logMessageReceived += ShowTips;
+#else
+        Application.RegisterLogCallback(ShowTips);
 #endif
         LuaFileUtils file = new LuaFileUtils();
         file.beZip = true;
 #if UNITY_ANDROID && UNITY_EDITOR
         if (IntPtr.Size == 8)
         {
-            throw new Exception("can't run this on standalone 64 bits, switch to pc platform, or run it in android mobile");
+            throw new Exception("can't run this in unity5.x process for 64 bits, switch to pc platform, or run it in android mobile");
         }
 #endif
-
         StartCoroutine(LoadBundles());
     }
 
@@ -120,33 +108,231 @@ public class TestABLoader : MonoBehaviour
     {
         tips += msg;
         tips += "\r\n";
+        text.text = tips;
     }
-
-    void OnGUI()
-    {
-        GUI.Label(new Rect(Screen.width / 2 - 200, Screen.height / 2 - 150, 400, 300), tips);
-    }
+    
 
     void OnApplicationQuit()
     {
-#if UNITY_4_6 || UNITY_4_7
-        Application.RegisterLogCallback(null);
-
-#else
+#if UNITY_5 || UNITY_2017 || UNITY_2018
         Application.logMessageReceived -= ShowTips;
+#else
+        Application.RegisterLogCallback(null);
+        state.Dispose();
+        state = null;
 #endif
     }
 
+    private LuaState state;
+    
     void OnBundleLoad()
-    {
-        LuaState state = new LuaState();
+    {                
+        state = new LuaState();
         state.Start();
-        state.DoString("print('hello tolua#:'..tostring(Vector3.zero))", "TestABLoader.cs");
-        state.Require("Main");
+        LuaBinder.Bind(state);
+        state.DoString("print('hello tolua#:'..tostring(Vector3.zero))");
+        state.DoFile("TestPerf.lua"); 
+        state.DoFile("Main.lua");
         LuaFunction func = state.GetFunction("Main");
         func.Call();
         func.Dispose();
-        state.Dispose();
-        state = null;
+	}
+
+    public Text text;
+    
+    public void Test1()
+    {
+        float time = Time.realtimeSinceStartup;            
+
+        for (int i = 0; i < 200000; i++)
+        {
+            Vector3 v = transform.position;
+            transform.position = v + Vector3.one;
+        }
+
+        time = Time.realtimeSinceStartup - time;
+        tips = "";
+        Debugger.Log("c# Transform getset cost time: " + time);            
+        transform.position = Vector3.zero;
+
+        LuaFunction func = state.GetFunction("Test1");
+        func.BeginPCall();
+        func.Push(transform);
+        func.PCall();
+        func.EndPCall();
+        func.Dispose();
+        func = null;    
+    }
+
+    public void Test2()
+    {
+        float time = Time.realtimeSinceStartup;
+
+        for (int i = 0; i < 200000; i++)
+        {
+            transform.Rotate(Vector3.up, 1);
+        }
+
+        time = Time.realtimeSinceStartup - time;
+        tips = "";
+        Debugger.Log("c# Transform.Rotate cost time: " + time);
+
+        LuaFunction func = state.GetFunction("Test2");
+        func.BeginPCall();
+        func.Push(transform);
+        func.PCall();
+        func.EndPCall();
+        func.Dispose();
+        func = null;    
+    }
+
+    public void Test3()
+    {
+        float time = Time.realtimeSinceStartup;            
+
+        for (int i = 0; i < 2000000; i++)
+        {
+            new Vector3(i, i, i);
+        }
+
+        time = Time.realtimeSinceStartup - time;
+        tips = "";
+        Debugger.Log("c# new Vector3 cost time: " + time);            
+
+        LuaFunction func = state.GetFunction("Test3");
+        func.Call();
+        func.Dispose();
+        func = null;  
+    }
+
+    public void Test4()
+    {
+        float time = Time.realtimeSinceStartup;
+
+        for (int i = 0; i < 20000; i++)
+        {
+            new GameObject();
+        }
+
+        time = Time.realtimeSinceStartup - time;
+        tips = "";
+        Debugger.Log("c# new GameObject cost time: " + time);
+
+        //光gc了
+        LuaFunction func = state.GetFunction("Test4");
+        func.Call();
+        func.Dispose();
+        func = null;
+    }
+
+    public void Test5()
+    {
+        int[] array = new int[1024];
+
+        for (int i = 0; i < 1024; i++)
+        {
+            array[i] = i;
+        }
+
+        float time = Time.realtimeSinceStartup;
+        int total = 0;
+
+        for (int j = 0; j < 100000; j++)
+        {
+            for (int i = 0; i < 1024; i++)
+            {
+                total += array[i];
+            }
+        }
+
+        time = Time.realtimeSinceStartup - time;
+        tips = "";
+        Debugger.Log("Array cost time: " + time);
+
+        List<int> list = new List<int>(array);
+        time = Time.realtimeSinceStartup;
+        total = 0;
+
+        for (int j = 0; j < 100000; j++)
+        {
+            for (int i = 0; i < 1024; i++)
+            {
+                total += list[i];
+            }
+        }
+
+        time = Time.realtimeSinceStartup - time;
+        tips = "";
+        Debugger.Log("Array cost time: " + time);
+
+        LuaFunction func = state.GetFunction("TestTable");
+        func.Call();
+        func.Dispose();
+        func = null;    
+    }
+
+    public void Test6()
+    {
+        float time = Time.realtimeSinceStartup;
+        Vector3 v1 = Vector3.zero;
+
+        for (int i = 0; i < 200000; i++)
+        {
+            Vector3 v = new Vector3(i,i,i);
+            v = Vector3.Normalize(v);
+            v1 = v + v1;
+        }
+
+        time = Time.realtimeSinceStartup - time;            
+        tips = "";
+        Debugger.Log("Vector3 New Normalize cost: " + time);
+        LuaFunction func = state.GetFunction("Test7");
+        func.Call();
+        func.Dispose();
+        func = null;  
+    }
+
+    public void Test7()
+    {
+        float time = Time.realtimeSinceStartup;
+
+        for (int i = 0; i < 200000; i++)
+        {
+            Quaternion q1 = Quaternion.Euler(i, i, i);
+            Quaternion q2 = Quaternion.Euler(i * 2, i * 2, i * 2);
+            Quaternion.Slerp(q1, q2, 0.5f);
+        }
+
+        time = Time.realtimeSinceStartup - time;
+        tips = "";
+        Debugger.Log("Quaternion Euler Slerp cost: " + time);
+
+        LuaFunction func = state.GetFunction("Test8");
+        func.Call();
+        func.Dispose();
+        func = null;
+    }
+
+    public void Test8()
+    {
+        tips = "";
+        LuaFunction func = state.GetFunction("Test9");
+        func.Call();
+        func.Dispose();
+        func = null;
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
+    void Update()
+    {
+        if (state != null)
+        {
+            state.CheckTop();
+            state.Collect();
+        }
     }
 }

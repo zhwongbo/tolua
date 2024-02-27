@@ -1,0 +1,42 @@
+{
+  "app": {
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "/Users/baioo/.ohos/config/auto_debug_HarmonyOS_com.DefaultCompany.tolua533_260086000073261732.cer",
+          "storePassword": "0000001ABB03AE8992C86084540534884920D05EE34AC91763F67E73E8B4A770C40EFDF1E6C65D377190",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001A5AA391D0AF3C2F7FF8268B5661B4B693D53F459031B6676AB72EC68830F89E403F344208E7FB",
+          "profile": "/Users/baioo/.ohos/config/auto_debug_HarmonyOS_com.DefaultCompany.tolua533_260086000073261732.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "/Users/baioo/.ohos/config/auto_debug_HarmonyOS_com.DefaultCompany.tolua533_260086000073261732.p12"
+        }
+      }
+    ],
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "default",
+        "compileSdkVersion": "4.0.0(10)",
+        "compatibleSdkVersion": "4.0.0(10)",
+        "runtimeOS": "HarmonyOS",
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "entry",
+      "srcPath": "./entry",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    }
+  ]
+}

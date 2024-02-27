@@ -13,6 +13,8 @@ public static class LuaConst
     public static string osDir = "iOS";        
 #elif UNITY_WEBPLAYER
     public static string osDir = "WebPlayer";
+#elif UNITY_OPENHARMONY
+    public static string osDir = "OpenHarmony";
 #else
     public static string osDir = "";        
 #endif
