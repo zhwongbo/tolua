@@ -71,6 +71,7 @@ public class OpenLuaAsset : Editor
 #endif
         int row = (int)logListViewCurrentRow.GetValue(logListView);
         LogEntriesGetEntry.Invoke(null, new object[] { row, logEntry });
+        if (logEntry == null || logEntryCondition == null) return "";
         string condition = logEntryCondition.GetValue(logEntry) as string;
 #if UNITY_2017_1_OR_NEWER
         EndGettingEntries.Invoke(null, null);

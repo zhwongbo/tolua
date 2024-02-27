@@ -171,6 +171,74 @@ public static class ToLuaExport
         "Type.IsSZArray",
         "Net.WriteStreamClosedEventHandler",
         "MeshRenderer.receiveGI",
+        "ParticleSystem.subEmitters",
+        /*2020.2.6f1 Unity.Collections.NativeArray导出报错*/
+        "Resources.InstanceIDToObjectList",
+        "Mesh.SetBoneWeights",
+        "Mesh.GetAllBoneWeights",
+        "Mesh.GetBonesPerVertex",
+        "Mesh.SetVertexBufferParams",
+        "Mesh.AcquireReadOnlyMeshData",
+        "TrailRenderer.GetPositions",
+        "TrailRenderer.SetPositions",
+        "TrailRenderer.AddPositions",
+        /*2022.2.17f1 导出报错*/
+        "Application.MemoryUsageChangedCallback",
+        "Resources.InstanceIDsToValidArray",
+        "Transform.TransformDirections",
+        "Transform.InverseTransformDirections",
+        "Transform.TransformVectors",
+        "Transform.InverseTransformVectors",
+        "Transform.TransformPoints",
+        "Transform.InverseTransformPoints",
+        "QualitySettings.IsPlatformIncluded",
+        "QualitySettings.TryIncludePlatformAt",
+        "QualitySettings.TryExcludePlatformAt",
+        "QualitySettings.GetActiveQualityLevelsForPlatform",
+        "QualitySettings.GetActiveQualityLevelsForPlatformCount",
+        "QualitySettings.GetAllRenderPipelineAssetsForPlatform",
+        "Material.SetKeyword",
+        "Material.DisableKeyword",
+        "Material.EnableKeyword",
+        "Material.IsKeywordEnabled",
+        "Material.IsChildOf",
+        "Material.IsPropertyOverriden",
+        "Material.IsPropertyLocked",
+        "Material.IsPropertyLockedByAncestor",
+        "Material.isVariant",
+        "Material.parent",
+        "Material.SetPropertyLock",
+        "Material.ApplyPropertyOverride",
+        "Material.RevertPropertyOverride",
+        "Material.RevertAllPropertyOverrides",
+        "AudioSource.PlayOnGamepad",
+        "AudioSource.DisableGamepadOutput",
+        "AudioSource.SetGamepadSpeakerMixLevel",
+        "AudioSource.SetGamepadSpeakerMixLevelDefault",
+        "AudioSource.SetGamepadSpeakerRestrictedAudio",
+        "AudioSource.GamepadSpeakerSupportsOutputType",
+        "AudioSource.gamepadSpeakerOutputType",
+        "Shader.SetKeyword",
+        "Shader.DisableKeyword",
+        "Shader.EnableKeyword",
+        "Shader.IsKeywordEnabled",
+        "Screen.MoveMainWindowTo",
+        "AssetBundle.GetAssetInstanceIds",
+        "AssetBundle.GetAssetPaths",
+        "AssetBundle.LoadEmbeddedObjectsInfo",
+        "AssetBundle.GetEmbeddedInstanceIds",
+        "AssetBundle.GetEmbeddedObjectLocalFileIds",
+        "AssetBundle.GetEmbeddedObjectPersistentTypeIds",
+        "AssetBundle.GetEmbeddedObjectLengths",
+        "AssetBundle.GetEmbeddedObjectCompressedSize",
+        "AssetBundle.GetEmbeddedObjectAssetIndex",
+        "AssetBundle.GetDependencies",
+        "AssetBundle.GetTypeName",
+        "MeshRenderer.scaleInLightmap",
+        "MeshRenderer.stitchLightmapSeams",
+        "MeshRenderer.scaleInLightmap",
+        "MeshRenderer.stitchLightmapSeams",
+        "MonoBehaviour.EnableScriptReloadInCheckConsistency",
     };
 
     class _MethodBase
@@ -304,8 +372,11 @@ public static class ToLuaExport
                 else
                 {
                     Type genericClass = typeof(LuaOut<>);
-                    Type t = genericClass.MakeGenericType(args[i].ParameterType.GetElementType());
-                    list.Add(t);
+                    if (args[i].ParameterType.GetElementType() != null)
+                    {
+                        Type t = genericClass.MakeGenericType(args[i].ParameterType.GetElementType());
+                        list.Add(t);
+                    }
                 }
             }
 

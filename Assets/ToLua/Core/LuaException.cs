@@ -26,6 +26,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Text;
 using UnityEngine;
+using Debug = System.Diagnostics.Debug;
 
 namespace LuaInterface
 {
@@ -162,11 +163,12 @@ namespace LuaInterface
                 {
                     fileName = fileName.Replace('\\', '/');
                     sb.Append(" (at ");
-
-                    if (fileName.StartsWith(projectFolder))
-                    {
-                        fileName = fileName.Substring(projectFolder.Length, fileName.Length - projectFolder.Length);
-                    }
+                    
+                    
+                    // if (fileName.StartsWith(projectFolder))
+                    // {
+                    //     fileName = fileName.Substring(projectFolder.Length, fileName.Length - projectFolder.Length);
+                    // }
 
                     sb.Append(fileName);
                     sb.Append(":");
@@ -187,7 +189,12 @@ namespace LuaInterface
             Type type = typeof(StackTraceUtility);
             FieldInfo field = type.GetField("projectFolder", BindingFlags.Static | BindingFlags.GetField | BindingFlags.NonPublic);
             LuaException.projectFolder = (string)field.GetValue(null);
+            if (string.IsNullOrEmpty(projectFolder))
+            {
+                projectFolder = Application.dataPath.Replace("Assets","");
+            }
             projectFolder = projectFolder.Replace('\\', '/');
+            
 #if DEVELOPER
             Debugger.Log("projectFolder is {0}", projectFolder);
 #endif
