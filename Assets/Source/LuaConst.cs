@@ -10,7 +10,9 @@ public static class LuaConst
 #elif UNITY_ANDROID
     public static string osDir = "Android";            
 #elif UNITY_IPHONE
-    public static string osDir = "iOS";        
+    public static string osDir = "iOS";  
+#elif UNITY_OPENHARMONY
+    public static string osDir = "OpenHarmony";
 #else
     public static string osDir = "";        
 #endif
