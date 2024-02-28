@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using LuaInterface;
-using System;
 using UnityEngine.UI;
 
 //click Lua/Build lua bundle
@@ -325,6 +324,55 @@ public class TestABLoader : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
+    }
+
+    public void CallStatic()
+    {
+        tips = "";
+        NativeMgr.CallStatic("StaticClassTest","Call",  new OpenHarmonyJSCallback(NativeMgr.Callback));
+    }
+
+    public void CallStaticX()
+    {
+        tips = "";
+        NativeMgr.CallStatic("StaticClassTest","CallX", 500, new OpenHarmonyJSCallback(NativeMgr.Callback));
+    }
+
+    public void CallStaticInt()
+    {
+        tips = "";
+        var value = NativeMgr.CallStaticIntDefault("StaticClassTest","CallInt", 500, new OpenHarmonyJSCallback(NativeMgr.Callback));
+        Debug.Log($"NativeBridge CallStaticInit return {value}");
+    }
+    
+    public void Call()
+    {
+        tips = "";
+        NativeMgr.Call("ClassTest","Call",  new OpenHarmonyJSCallback(NativeMgr.Callback));
+    }
+
+    public void CallX()
+    {
+        tips = "";
+        NativeMgr.Call("ClassTest","CallX", 500, new OpenHarmonyJSCallback(NativeMgr.Callback));
+    }
+    
+    public void CallInt()
+    {
+        tips = "";
+        var value = NativeMgr.CallValue<int>("ClassTest","CallInt", 500);
+        Debug.Log($"NativeBridge CallInit return {value}");
+    }
+
+    public void TestMessage()
+    {
+        tips = "";
+        NativeMgr.CallStatic("StaticClassTest","SendMsg2Unity");
+    }
+
+    public void OnMessage(string param)
+    {
+        Debug.Log($"NativeBridge OnMessage  {param}");
     }
 
     void Update()

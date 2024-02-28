@@ -1,4 +1,5 @@
 
+import { RegisterNativeManager } from '../NativeManager';
 
 function register(tuanjieJSClasses, functionName) {
     var exportObj = functionName();
@@ -9,6 +10,7 @@ function register(tuanjieJSClasses, functionName) {
 
 export function registerJSScriptToCSharp() {
     var tuanjieJSClasses = {};
-    
+    	register(tuanjieJSClasses, RegisterNativeManager);
+
     return tuanjieJSClasses;
 }
