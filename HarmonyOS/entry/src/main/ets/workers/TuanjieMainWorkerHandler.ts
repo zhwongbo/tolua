@@ -40,12 +40,14 @@ workerPort.onmessage = function (e) {
       break;
     case 'SoftInput_onTextChange':
       globalThis.softInputMsg = data.data;
-
-      TuanjieLog.debug("CustomDialogController woker thread SoftInput_onTextChange " + data.data);
+      TuanjieLog.debug("CustomDialogController worker thread SoftInput_onTextChange " + data.data);
       tuanjie.nativeSetInputString();
       break;
+    case 'SoftInput_onTextSelectionChange':
+      tuanjie.nativeSetInputSelection(data.start, data.length);
+      break;
     case 'SoftInput_accept':
-      TuanjieLog.debug("CustomDialogController woker thread SoftInput_accept " + data.data);
+      TuanjieLog.debug("CustomDialogController worker thread SoftInput_accept " + data.data);
       tuanjie.nativeSoftInputClosed();
       break;
     case 'SoftInput_cancel':

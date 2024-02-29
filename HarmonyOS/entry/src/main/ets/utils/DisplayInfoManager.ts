@@ -2,6 +2,8 @@ import { TuanjieLog } from '../common/TuanjieLog';
 import display from '@ohos.display';
 import { TuanjieMainWorker } from '../workers/TuanjieMainWorker'
 import { APP_KEY_ORIENTATION_CHANGE } from '../common/Constants';
+import { WindowUtils } from '../utils/WindowUtils'
+import tuanjie from 'libtuanjie.so'
 
 export class TuanjieDisplayInfo {
   displayID: number;
@@ -21,6 +23,10 @@ export class DisplayInfoManager {
     3: 1
   };
 
+  #currentFlag: number = 0;
+  #currrentWidth: number = 0;
+  #currentHeight: number = 0;
+
   // todo ohos: don't support multi displayi now
   defaultDisplay: TuanjieDisplayInfo;
   private static instance = new DisplayInfoManager();
@@ -32,7 +38,7 @@ export class DisplayInfoManager {
 
   public initialize(): void {
     this.updateDisplayInfo();
-    this.enableDisplayChangeCallback()
+    this.enableDisplayChangeCallback();
   }
 
   private enableDisplayChangeCallback(): void {
@@ -48,7 +54,7 @@ export class DisplayInfoManager {
   }
 
   private updateDisplayInfo(): void {
-    let displayClass = null;
+    let displayClass: display.Display = null;
     try {
       displayClass = display.getDefaultDisplaySync();
       this.defaultDisplay.displayID = displayClass.id;
@@ -58,7 +64,14 @@ export class DisplayInfoManager {
       this.defaultDisplay.refreshRate = displayClass.refreshRate;
       this.defaultDisplay.densityDPI = displayClass.densityDPI;
 
-      AppStorage.SetOrCreate<number>(APP_KEY_ORIENTATION_CHANGE, displayClass.rotation);
+      if (this.#currrentWidth != displayClass.width || this.#currentHeight != displayClass.height) {
+        this.#currentFlag ^= 1;
+        this.#currrentWidth = displayClass.width;
+        this.#currentHeight = displayClass.height;
+        WindowUtils.setXComponentSizeWithSafeArea(tuanjie.nativeGetIsRenderOutsizeSafeArea());
+      }
+
+      AppStorage.setOrCreate<number>(APP_KEY_ORIENTATION_CHANGE, displayClass.rotation);
 
       TuanjieMainWorker.getInstance().postMessage({
         type: 'SetDisplayInfo',

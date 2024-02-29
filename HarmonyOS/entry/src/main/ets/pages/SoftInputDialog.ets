@@ -6,6 +6,8 @@ export struct SoftInputDialog {
   private inputMessage: string = ''
   onTextChange: (msg: string) => void = () => {
   }
+  onTextSelectionChange: (start: number, end: number) => void = () => {
+  }
   accept: (msg: string) => void = () => {
   }
   controller?: CustomDialogController
@@ -25,6 +27,11 @@ export struct SoftInputDialog {
               this.onTextChange(value);
             }
             this.inputMessage = value;
+          })
+          .onTextSelectionChange((start, end) => {
+            if (this.onTextSelectionChange) {
+              this.onTextSelectionChange(start, end);
+            }
           })
           .onSubmit((value) => {
             if (this.accept) {

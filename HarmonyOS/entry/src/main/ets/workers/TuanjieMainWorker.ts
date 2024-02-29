@@ -11,7 +11,8 @@ import vibrator from '@ohos.vibrator';
 import common from '@ohos.app.ability.common';
 import { TuanjieOpenURL } from '../utils/TuanjieOpenURL';
 import display from '@ohos.display';
-
+import { TuanjieAAID } from '../utils/TuanjieAAID';
+import { SystemSettings } from '../utils/SystemSettings';
 
 export class TuanjieMainWorker {
   public threadWorker: worker.ThreadWorker;
@@ -19,7 +20,9 @@ export class TuanjieMainWorker {
     "TuanjiePermissions": TuanjiePermissions,
     "TuanjieLocation": TuanjieLocation,
     "WindowUtils": WindowUtils,
-    "TuanjieOpenURL":TuanjieOpenURL,
+    "TuanjieOpenURL": TuanjieOpenURL,
+    "TuanjieAAID": TuanjieAAID,
+    "SystemSettings": SystemSettings,
   };
 
   private constructor() {

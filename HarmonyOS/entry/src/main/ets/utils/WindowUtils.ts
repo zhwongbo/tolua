@@ -3,6 +3,7 @@ import pasteboard from '@ohos.pasteboard';
 import { GetFromGlobalThis } from '../common/GlobalThisUtil';
 import { TuanjieLog } from '../common/TuanjieLog';
 import { DisplayInfoManager } from '../utils/DisplayInfoManager'
+import { DebuggerDialogInfo } from './DebuggerDialogInfo';
 import { APP_KEY_XCOMPONENT_WIDTH, APP_KEY_XCOMPONENT_HEIGHT } from '../common/Constants';
 
 // These MUST be synchronized with ScreenManager.h
@@ -154,4 +155,9 @@ export class WindowUtils {
     }
     return true;
   }
+
+  static showSingleButtonDialog(dialogTitle: string, dialogMessage: string, dialogButtonText = "OK") {
+    DebuggerDialogInfo.setDebuggerDialogInfo(dialogTitle, dialogMessage, dialogButtonText, true);
+  }
+
 }

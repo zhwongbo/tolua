@@ -7,6 +7,8 @@ import resourceManager from '@ohos.resourceManager';
 import {WebviewInfo, TuanjieWebview} from "./TuanjieWebview"
 import { APP_KEY_XCOMPONENT_WIDTH, APP_KEY_XCOMPONENT_HEIGHT, APP_KEY_ORIENTATION_CHANGE } from '../common/Constants';
 import { WindowUtils } from '../utils/WindowUtils'
+import { DebuggerDialogInfo } from '../utils/DebuggerDialogInfo'
+import { DebuggerDialog } from './DebuggerDialog'
 import tuanjie from 'libtuanjie.so'
 
 @Entry
@@ -16,17 +18,16 @@ struct TuanjiePlayer {
   @State webviewInfo: WebviewInfo = new WebviewInfo(0,0,0,0);
   @StorageProp(APP_KEY_XCOMPONENT_WIDTH) xComponentWidth: string = '0px';
   @StorageProp(APP_KEY_XCOMPONENT_HEIGHT) xComponentHeight: string = '0px';
-  @StorageProp(APP_KEY_ORIENTATION_CHANGE) @Watch('updateXComponent') orientation: number = 0;
+  @StorageProp(APP_KEY_ORIENTATION_CHANGE) @Watch('updateOrientation') orientation: number = 0;
+  @State debuggerDialogInfo : DebuggerDialogInfo = new DebuggerDialogInfo("","","",false);
   @State vAlign: FlexAlign = FlexAlign.End;
   @State hAlign: FlexAlign = FlexAlign.End;
 
-  updateXComponent() {
+  updateOrientation() {
     // portrait upside down
     this.vAlign = this.orientation == 2 ? FlexAlign.Start : FlexAlign.End;
     // landscape right
     this.hAlign = this.orientation == 1 ? FlexAlign.Start : FlexAlign.End;
-    // calculate safearea and set
-    WindowUtils.setXComponentSizeWithSafeArea(tuanjie.nativeGetIsRenderOutsizeSafeArea());
   }
 
   dialogController = new CustomDialogController({
@@ -35,6 +36,10 @@ struct TuanjiePlayer {
       onTextChange: (msg: string) => {
         TuanjieLog.debug("CustomDialogController onTextChange " + msg);
         TuanjieMainWorker.getInstance().postMessage({ type: 'SoftInput_onTextChange', data: msg });
+      },
+      onTextSelectionChange: (start: number, end: number) => {
+        TuanjieLog.debug("CustomDialogController onTextSelectionChange start: " + start.toString() + ", end: " + end.toString());
+        TuanjieMainWorker.getInstance().postMessage({ type: 'SoftInput_onTextSelectionChange', start: start, length: end - start });
       },
       accept: (msg: string) => {
         TuanjieLog.debug("CustomDialogController accept" + msg);
@@ -52,9 +57,11 @@ struct TuanjiePlayer {
 
   onPageShow() {
     TuanjieLog.info('%{public}s', 'onPageShow');
-    this.updateXComponent();
+    this.updateOrientation();
+    WindowUtils.setXComponentSizeWithSafeArea(tuanjie.nativeGetIsRenderOutsizeSafeArea());
     SetToGlobalThis('dialogController', this.dialogController);
     SetToGlobalThis('webviewInfo', this.webviewInfo);
+    SetToGlobalThis(DebuggerDialogInfo.DebuggerDialogInfoKey, this.debuggerDialogInfo);
   }
 
   onPageHide() {
@@ -84,6 +91,10 @@ struct TuanjiePlayer {
 
         StaticSplashScreen()
         VideoPlayer()
+        if (this.debuggerDialogInfo.Showing)
+        {
+          DebuggerDialog({debuggerDialogInfo: this.debuggerDialogInfo})
+        }
       }
       .height('100%')
       .backgroundColor('#ff000000')
