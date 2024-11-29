@@ -23,13 +23,15 @@ public class NativeMgr
         openHarmonyJsClass.CallStatic(method, param);
     }
 
-    public static void Callback(params OpenHarmonyJSObject[] args)
+    public static object Callback(params OpenHarmonyJSObject[] args)
     {
         foreach (var arg in args)
         {
             Debug.Log(
                 $"NativeBridge OpenHarmonyJSCallback msg: {arg.Get<string>("msg")} err: {arg.Get<string>("err")}");
         }
+
+        return "";
     }
 
     /// <summary>
